@@ -105,5 +105,4 @@ export class QuestionsController {
     }
     return createdQuestions;
   }
-
 }
