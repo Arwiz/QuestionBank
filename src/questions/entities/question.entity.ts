@@ -13,4 +13,7 @@ export class Question {
 
   @Column('jsonb', { nullable: true })
   options: string[];
+
+  @Column('jsonb', { nullable: true })
+  tags: string[];
 }

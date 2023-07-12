@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { DATABASE_CONSTANTS } from 'src/database/database.provider.constant';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class QuestionsService {
@@ -24,11 +25,13 @@ export class QuestionsService {
   }
 
   async updateQuestion(
-    id: any,
+    _id: string,
     questionData: Partial<Question>,
   ): Promise<Question> {
-    await this.questionsRepository.update(id, questionData);
-    return this.questionsRepository.findOne(id);
+    await this.questionsRepository.update(_id, questionData);
+    return this.questionsRepository.findOne({
+      where: { _id: new ObjectId(_id) },
+    });
   }
 
   async deleteQuestion(id: number): Promise<void> {
